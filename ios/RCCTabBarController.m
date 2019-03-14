@@ -89,6 +89,7 @@
             UIColor *color = tabBarButtonColor != (id)[NSNull null] ? [RCTConvert UIColor:tabBarButtonColor] : nil;
             self.tabBar.tintColor = color;
             buttonColor = color;
+            self.buttonColor = buttonColor;
             selectedButtonColor = color;
         }
         NSString *tabBarSelectedButtonColor = tabsStyle[@"tabBarSelectedButtonColor"];
@@ -293,7 +294,7 @@
             id icon = actionParams[@"icon"];
             if (icon && icon != (id)[NSNull null]) {
                 iconImage = [RCTConvert UIImage:icon];
-                iconImage = [[self image:iconImage withColor:self.tabBar.tintColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+                iconImage = [[self image:iconImage withColor:self.buttonColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
                 viewController.tabBarItem.image = iconImage;
             }
             
