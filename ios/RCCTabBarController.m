@@ -45,14 +45,11 @@
                 topRCCViewController.timestamp = [RCTHelpers getTimestampString];
             }
         }
-        
+        return YES;
     } else {
         [RCCTabBarController sendScreenTabPressedEvent:viewController body:nil];
+        return NO;
     }
-    
-    
-    
-    return YES;
 }
 
 - (UIImage *)image:(UIImage*)image withColor:(UIColor *)color1 {
