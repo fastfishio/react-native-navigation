@@ -44,7 +44,7 @@ public class ScreenParamsParser extends Parser {
         result.leftButton = ButtonParser.parseLeftButton(params);
         result.isCenter = params.getBoolean(IS_CENTER, false);
         result.marginTop = params.getInt(MARGIN_TOP, 0);
-        
+
         result.topTabParams = parseTopTabs(params);
         if (hasKey(params, "screens")) {
             result.screens = parseScreens(params.getBundle("screens"));
