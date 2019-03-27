@@ -33,7 +33,7 @@ public class BottomTabs extends AHBottomNavigation {
     public void addTabs(List<ScreenParams> params, OnTabSelectedListener onTabSelectedListener) {
         for (ScreenParams screenParams : params) {
             AHBottomNavigationItem item = new AHBottomNavigationItem(screenParams.tabLabel, screenParams.tabIcon,
-                    Color.GRAY, screenParams.isCenter, screenParams.marginTop);
+                    Color.GRAY, screenParams.isCenter, screenParams.marginTop, screenParams.selectedIcon);
             addItem(item);
             setOnTabSelectedListener(onTabSelectedListener);
         }
