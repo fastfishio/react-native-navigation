@@ -24,6 +24,7 @@ public class BaseScreenParams {
     public String animationType;
     public boolean isCenter;
     public int marginTop;
+    public Drawable selectedIcon;
 
     public boolean isFragmentScreen() {
         return fragmentCreatorClassName != null;
