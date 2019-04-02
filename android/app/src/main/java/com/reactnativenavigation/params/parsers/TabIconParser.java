@@ -13,10 +13,10 @@ class TabIconParser extends Parser {
         this.params = params;
     }
 
-    public Drawable parse() {
+    public Drawable parse(String key) {
         Drawable tabIcon = null;
-        if (hasKey(params, "icon")) {
-            tabIcon = ImageLoader.loadImage(params.getString("icon"));
+        if (hasKey(params, key)) {
+            tabIcon = ImageLoader.loadImage(params.getString(key));
         }
         return tabIcon;
     }

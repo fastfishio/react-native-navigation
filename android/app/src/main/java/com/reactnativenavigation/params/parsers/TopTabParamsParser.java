@@ -28,7 +28,8 @@ class TopTabParamsParser extends Parser {
         PageParams result = new PageParams();
         result.screenId = params.getString(KEY_SCREEN_ID);
         result.title = params.getString(KEY_TITLE);
-        result.tabIcon = new TabIconParser(params).parse();
+        result.tabIcon = new TabIconParser(params).parse("icon");
+        result.selectedIcon = new TabIconParser(params).parse("selectedIcon");
         result.navigationParams = new NavigationParams(params.getBundle(NAVIGATION_PARAMS));
         result.leftButton = ButtonParser.parseLeftButton(params);
         result.rightButtons = ButtonParser.parseRightButton(params);
