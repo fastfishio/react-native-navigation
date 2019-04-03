@@ -67,6 +67,10 @@ public class BottomTabs extends AHBottomNavigation {
                 item.setDrawable(params.tabIcon);
                 tabNeedsRefresh = true;
             }
+            if (params.selectedIcon != null) {
+                item.setSelectedDrawable(params.selectedIcon);
+                tabNeedsRefresh = true;
+            }
             if (params.tabLabel != null) {
                 item.setTitle(params.tabLabel);
                 tabNeedsRefresh = true;
