@@ -138,17 +138,14 @@
         NSDictionary *childLayout = tabItemLayout[@"children"][0];
         UIViewController *viewController = [RCCViewController controllerWithLayout:childLayout globalProps:globalProps bridge:bridge];
         if (!viewController) continue;
-        
+
         // create the tab icon and title
         NSString *title = tabItemLayout[@"props"][@"title"];
-        UIImage *iconImage = nil;
+
         id icon = tabItemLayout[@"props"][@"icon"];
-        if (icon) {
-            iconImage = [RCTConvert UIImage:icon];
-            if (buttonColor) {
-                iconImage = [[self image:iconImage withColor:buttonColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-            }
-        }
+        UIImage *iconImage = [RCTConvert UIImage:icon];
+        iconImage = [iconImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+
         UIImage *iconImageSelected = nil;
         id selectedIcon = tabItemLayout[@"props"][@"selectedIcon"];
         if (selectedIcon) {
@@ -156,7 +153,8 @@
         } else {
             iconImageSelected = [RCTConvert UIImage:icon];
         }
-        
+        iconImageSelected = [iconImageSelected imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+
         viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:iconImage tag:0];
         viewController.tabBarItem.accessibilityIdentifier = tabItemLayout[@"props"][@"testID"];
         viewController.tabBarItem.selectedImage = iconImageSelected;
@@ -287,21 +285,22 @@
         }
         
         if (viewController) {
-            UIImage *iconImage = nil;
             id icon = actionParams[@"icon"];
-            if (icon && icon != (id)[NSNull null]) {
-                iconImage = [RCTConvert UIImage:icon];
-                iconImage = [[self image:iconImage withColor:self.buttonColor] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-                viewController.tabBarItem.image = iconImage;
-            }
+            UIImage *iconImage = [RCTConvert UIImage:icon];
+            iconImage = [iconImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             
             UIImage *iconImageSelected = nil;
             id selectedIcon = actionParams[@"selectedIcon"];
             if (selectedIcon && selectedIcon != (id)[NSNull null]) {
                 iconImageSelected = [RCTConvert UIImage:selectedIcon];
-                viewController.tabBarItem.selectedImage = iconImageSelected;
+            } else {
+                iconImageSelected = [RCTConvert UIImage:icon];
             }
+            iconImageSelected = [iconImageSelected imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             
+            viewController.tabBarItem.image = iconImage;
+            viewController.tabBarItem.selectedImage = iconImageSelected;
+
             id label = actionParams[@"label"];
             if (label && label != (id)[NSNull null]) {
                 viewController.tabBarItem.title = label;
