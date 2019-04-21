@@ -47,7 +47,12 @@
         }
         return YES;
     } else {
-        [RCCTabBarController sendScreenTabPressedEvent:viewController body:nil];
+        NSDictionary *body = @{
+                               @"selectedTabIndex": @([tabBarController.viewControllers indexOfObject:viewController]),
+                               @"unselectedTabIndex": @(tabBarController.selectedIndex)
+                               };
+
+        [RCCTabBarController sendScreenTabPressedEvent:viewController body:body];
         return NO;
     }
 }
