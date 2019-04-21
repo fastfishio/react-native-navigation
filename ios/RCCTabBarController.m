@@ -27,11 +27,12 @@
         [[[RCCManager sharedInstance].getBridge uiManager] configureNextLayoutAnimation:nil withCallback:^(NSArray* arr){} errorCallback:^(NSArray* arr){}];
     });
     
-    if (tabBarController.selectedIndex != [tabBarController.viewControllers indexOfObject:viewController]) {
-        NSDictionary *body = @{
+    NSDictionary *body = @{
                                @"selectedTabIndex": @([tabBarController.viewControllers indexOfObject:viewController]),
                                @"unselectedTabIndex": @(tabBarController.selectedIndex)
                                };
+
+    if (tabBarController.selectedIndex != [tabBarController.viewControllers indexOfObject:viewController]) {
         [RCCTabBarController sendScreenTabChangedEvent:viewController body:body];
         
         [[[RCCManager sharedInstance] getBridge].eventDispatcher sendAppEventWithName:@"bottomTabSelected" body:body];
@@ -47,11 +48,6 @@
         }
         return YES;
     } else {
-        NSDictionary *body = @{
-                               @"selectedTabIndex": @([tabBarController.viewControllers indexOfObject:viewController]),
-                               @"unselectedTabIndex": @(tabBarController.selectedIndex)
-                               };
-
         [RCCTabBarController sendScreenTabPressedEvent:viewController body:body];
         return NO;
     }
