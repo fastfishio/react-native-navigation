@@ -70,6 +70,8 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
         leftSideMenuParams = params.leftSideMenuParams;
         rightSideMenuParams = params.rightSideMenuParams;
         screenStacks = new ScreenStack[params.tabParams.size()];
+        setClipChildren(false);
+        setClipToPadding(false);
         createLayout();
     }
 

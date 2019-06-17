@@ -33,7 +33,7 @@ public class BottomTabs extends AHBottomNavigation {
     public void addTabs(List<ScreenParams> params, OnTabSelectedListener onTabSelectedListener) {
         for (ScreenParams screenParams : params) {
             AHBottomNavigationItem item = new AHBottomNavigationItem(screenParams.tabLabel, screenParams.tabIcon,
-                    Color.GRAY, screenParams.selectedIcon);
+                    Color.GRAY, screenParams.selectedIcon, screenParams.isCenter, screenParams.marginTop);
             addItem(item);
             setOnTabSelectedListener(onTabSelectedListener);
         }
@@ -73,6 +73,14 @@ public class BottomTabs extends AHBottomNavigation {
             }
             if (params.tabLabel != null) {
                 item.setTitle(params.tabLabel);
+                tabNeedsRefresh = true;
+            }
+            if (params.isCenter) {
+                item.setCenter(true);
+                tabNeedsRefresh = true;
+            }
+            if (params.marginTop > 0) {
+                item.setMarginTop(params.marginTop);
                 tabNeedsRefresh = true;
             }
 

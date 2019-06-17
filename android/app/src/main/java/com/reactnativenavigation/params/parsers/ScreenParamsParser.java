@@ -24,6 +24,8 @@ public class ScreenParamsParser extends Parser {
     private static final String FRAGMENT_CREATOR_PASS_PROPS = "fragmentCreatorPassProps";
     private static final String OVERRIDE_BACK_PRESS = "overrideBackPress";
     private static final String ANIMATION_TYPE = "animationType";
+    private static final String IS_CENTER = "isCenter";
+    private static final String MARGIN_TOP = "marginTop";
 
     @SuppressWarnings("ConstantConditions")
     public static ScreenParams parse(Bundle params) {
@@ -40,6 +42,8 @@ public class ScreenParamsParser extends Parser {
         result.rightButtons = ButtonParser.parseRightButton(params);
         result.overrideBackPressInJs = params.getBoolean(OVERRIDE_BACK_PRESS, false);
         result.leftButton = ButtonParser.parseLeftButton(params);
+        result.isCenter = params.getBoolean(IS_CENTER, false);
+        result.marginTop = params.getInt(MARGIN_TOP, 0);
 
         result.topTabParams = parseTopTabs(params);
         if (hasKey(params, "screens")) {

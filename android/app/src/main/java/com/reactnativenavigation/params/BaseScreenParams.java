@@ -23,6 +23,8 @@ public class BaseScreenParams {
     public Bundle fragmentCreatorPassProps;
     public boolean animateScreenTransitions;
     public String animationType;
+    public boolean isCenter;
+    public int marginTop;
 
     public boolean isFragmentScreen() {
         return fragmentCreatorClassName != null;
