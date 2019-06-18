@@ -156,10 +156,14 @@
         }
         iconImageSelected = [iconImageSelected imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 
+        NSNumber *marginTopObject = tabItemLayout[@"props"][@"marginTop"] ?: [[NSNumber alloc] initWithDouble:0];
+        CGFloat marginTop = marginTopObject.doubleValue;
+
         viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:iconImage tag:0];
         viewController.tabBarItem.accessibilityIdentifier = tabItemLayout[@"props"][@"testID"];
         viewController.tabBarItem.selectedImage = iconImageSelected;
-        
+        viewController.tabBarItem.imageInsets = UIEdgeInsetsMake(marginTop, 0, 0, 0);
+
         id imageInsets = tabItemLayout[@"props"][@"iconInsets"];
         if (imageInsets && imageInsets != (id)[NSNull null]) {
             id topInset = imageInsets[@"top"];
