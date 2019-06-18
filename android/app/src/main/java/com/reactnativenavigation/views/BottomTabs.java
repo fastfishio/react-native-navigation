@@ -75,15 +75,14 @@ public class BottomTabs extends AHBottomNavigation {
                 item.setTitle(params.tabLabel);
                 tabNeedsRefresh = true;
             }
-            if (params.isCenter || !params.isCenter) {
-                item.setCenter(params.isCenter);
-                tabNeedsRefresh = true;
-            }
+
             if (params.marginTop != 0) {
                 item.setMarginTop(params.marginTop);
                 tabNeedsRefresh = true;
             }
 
+            item.setCenter(params.isCenter);
+            
             if (tabNeedsRefresh) {
                 this.refresh();
             }
