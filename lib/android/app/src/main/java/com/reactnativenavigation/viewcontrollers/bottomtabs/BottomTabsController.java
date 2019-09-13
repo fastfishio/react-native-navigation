@@ -182,9 +182,9 @@ public class BottomTabsController extends ParentController implements AHBottomNa
     public void selectTab(final int newIndex) {
         tabsAttacher.onTabSelected(tabs.get(newIndex));
         getCurrentView().setVisibility(View.INVISIBLE);
+        bottomTabs.getItem(this.previousSelectedIndex).setDrawable(getIcon(this.previousSelectedIndex, false));
+        bottomTabs.getItem(newIndex).setDrawable(getIcon(newIndex, true));
         bottomTabs.setCurrentItem(newIndex, false);
-        bottomTabs.setIcon(this.previousSelectedIndex, getIcon(this.previousSelectedIndex, false));
-        bottomTabs.setIcon(newIndex, getIcon(newIndex, true));
         getCurrentView().setVisibility(View.VISIBLE);
         this.previousSelectedIndex = newIndex;
     }
