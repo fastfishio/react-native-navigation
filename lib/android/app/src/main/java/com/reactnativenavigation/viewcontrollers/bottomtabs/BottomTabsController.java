@@ -1,6 +1,7 @@
 package com.reactnativenavigation.viewcontrollers.bottomtabs;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.view.View;
@@ -41,6 +42,7 @@ public class BottomTabsController extends ParentController implements AHBottomNa
     private final BottomTabsAttacher tabsAttacher;
     private BottomTabsPresenter presenter;
     private BottomTabPresenter tabPresenter;
+    private int previousSelectedIndex = 0;
 
     public BottomTabsController(Activity activity, List<ViewController> tabs, ChildControllersRegistry childRegistry, EventEmitter eventEmitter, ImageLoader imageLoader, String id, Options initialOptions, Presenter presenter, BottomTabsAttacher tabsAttacher, BottomTabsPresenter bottomTabsPresenter, BottomTabPresenter bottomTabPresenter) {
 		super(activity, childRegistry, id, presenter, initialOptions);
@@ -180,8 +182,11 @@ public class BottomTabsController extends ParentController implements AHBottomNa
     public void selectTab(final int newIndex) {
         tabsAttacher.onTabSelected(tabs.get(newIndex));
         getCurrentView().setVisibility(View.INVISIBLE);
+        bottomTabs.getItem(this.previousSelectedIndex).setDrawable(getIcon(this.previousSelectedIndex, false));
+        bottomTabs.getItem(newIndex).setDrawable(getIcon(newIndex, true));
         bottomTabs.setCurrentItem(newIndex, false);
         getCurrentView().setVisibility(View.VISIBLE);
+        this.previousSelectedIndex = newIndex;
     }
 
     @NonNull
@@ -192,5 +197,11 @@ public class BottomTabsController extends ParentController implements AHBottomNa
     @RestrictTo(RestrictTo.Scope.TESTS)
     public BottomTabs getBottomTabs() {
         return bottomTabs;
+    }
+
+    private Drawable getIcon(int index, boolean isSelected) {
+        BottomTabOptions options = tabs.get(index).resolveCurrentOptions().bottomTabOptions;
+        String icon = isSelected ? options.selectedIcon.get() : options.icon.get();
+        return imageLoader.loadIcon(getActivity(), icon);
     }
 }
