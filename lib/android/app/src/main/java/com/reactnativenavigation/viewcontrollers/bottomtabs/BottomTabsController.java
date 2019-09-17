@@ -24,6 +24,7 @@ import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.views.BottomTabs;
 import com.reactnativenavigation.views.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class BottomTabsController extends ParentController implements AHBottomNa
     private BottomTabsPresenter presenter;
     private BottomTabPresenter tabPresenter;
     private int previousSelectedIndex = 0;
+    private List<BottomTabOptions> optionsList = new ArrayList<BottomTabOptions>(1);
 
     public BottomTabsController(Activity activity, List<ViewController> tabs, ChildControllersRegistry childRegistry, EventEmitter eventEmitter, ImageLoader imageLoader, String id, Options initialOptions, Presenter presenter, BottomTabsAttacher tabsAttacher, BottomTabsPresenter bottomTabsPresenter, BottomTabPresenter bottomTabPresenter) {
 		super(activity, childRegistry, id, presenter, initialOptions);
@@ -106,6 +108,7 @@ public class BottomTabsController extends ParentController implements AHBottomNa
     @Override
     public void applyChildOptions(Options options, Component child) {
         super.applyChildOptions(options, child);
+        updateOptionsList(options.bottomTabOptions);
         presenter.applyChildOptions(resolveCurrentOptions(), child);
         performOnParentController(parentController ->
                 ((ParentController) parentController).applyChildOptions(
@@ -154,6 +157,7 @@ public class BottomTabsController extends ParentController implements AHBottomNa
 		if (tabs.size() > 5) throw new RuntimeException("Too many tabs!");
         return map(tabs, tab -> {
             BottomTabOptions options = tab.resolveCurrentOptions().bottomTabOptions;
+            optionsList.add(options);
             return new AHBottomNavigationItem(
                     options.text.get(""),
                     imageLoader.loadIcon(getActivity(), options.icon.get()),
@@ -200,8 +204,19 @@ public class BottomTabsController extends ParentController implements AHBottomNa
     }
 
     private Drawable getIcon(int index, boolean isSelected) {
-        BottomTabOptions options = tabs.get(index).resolveCurrentOptions().bottomTabOptions;
+        BottomTabOptions options = optionsList.get(index);
         String icon = isSelected ? options.selectedIcon.get() : options.icon.get();
         return imageLoader.loadIcon(getActivity(), icon);
+    }
+    private void updateOptionsList(BottomTabOptions option) {
+        if(null == option) {
+            return;
+        }
+        forEach(optionsList, (opt -> {
+            if(opt.text.equals(option.text)) {
+                if(null != option.icon) opt.icon = option.icon;
+                if(null != option.selectedIcon) opt.selectedIcon = option.selectedIcon;
+            }
+        }));
     }
 }
