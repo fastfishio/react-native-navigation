@@ -220,6 +220,7 @@
 	}
 	RNNCustomTitleView* customTopBarBackground = [[RNNCustomTitleView alloc] initWithFrame:navigationController.navigationBar.bounds subView:_customTopBarBackgroundReactView alignment:@"fill"];
 	_customTopBarBackground = customTopBarBackground;
+	[_customTopBarBackground setUserInteractionEnabled:NO];
 	
 	[navigationController.navigationBar insertSubview:_customTopBarBackground atIndex:1];
 }
