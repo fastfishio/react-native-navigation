@@ -1,6 +1,8 @@
 #import <UIKit/UIKit.h>
 
 @class RNNBottomTabOptions;
+@class RNNNavigationOptions;
+@class RNNBackButtonOptions;
 
 @interface UIViewController (RNNOptions)
 
@@ -20,7 +22,7 @@
 
 - (void)rnn_setTabBarItemBadgeColor:(UIColor *)badgeColor;
 
-- (void)rnn_setTabBarItemBadge:(RNNBottomTabOptions *)bottomTab;
+- (void)rnn_setTabBarItemBadge:(NSString *)badge;
 
 - (void)rnn_setTopBarPrefersLargeTitle:(BOOL)prefersLargeTitle;
 
@@ -37,6 +39,8 @@
 - (void)rnn_setInterceptTouchOutside:(BOOL)interceptTouchOutside;
 
 - (void)rnn_setBackButtonIcon:(UIImage *)icon withColor:(UIColor *)color title:(NSString *)title;
+
+- (void)applyBackButton:(RNNBackButtonOptions *)backButton;
 
 - (BOOL)isModal;
 

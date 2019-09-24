@@ -24,26 +24,32 @@
 	self.presenter = presenter;
 	[self.presenter bindViewController:self];
 	[self.presenter applyOptionsOnInit:self.resolveOptions];
-	
 
 	return self;
 }
 
-- (RNNNavigationOptions *)resolveOptions {
-	return [(RNNNavigationOptions *)[self.options mergeInOptions:self.getCurrentChild.resolveOptions.copy] withDefault:self.defaultOptions];
-}
-
-- (RNNNavigationOptions *)resolveChildOptions:(UIViewController *) child {
-	return [(RNNNavigationOptions *)[self.options mergeInOptions:child.resolveOptions.copy] withDefault:self.defaultOptions];
-}
-
 - (void)mergeOptions:(RNNNavigationOptions *)options {
-	[self.presenter mergeOptions:options currentOptions:self.options defaultOptions:self.defaultOptions];
-	[self.parentViewController mergeOptions:options];
+    [self.options overrideOptions:options];
+	[self.presenter mergeOptions:options currentOptions:self.resolveOptions];
+    [self.parentViewController mergeChildOptions:options];
+}
+
+- (void)mergeChildOptions:(RNNNavigationOptions *)options {
+	[self.presenter mergeOptions:options currentOptions:self.resolveOptions];
+	[self.parentViewController mergeChildOptions:options];
+}
+
+- (RNNNavigationOptions *)resolveOptions {
+    return (RNNNavigationOptions *) [self.options mergeInOptions:self.getCurrentChild.resolveOptions.copy];
 }
 
 - (void)overrideOptions:(RNNNavigationOptions *)options {
 	[self.options overrideOptions:options];
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+	UIInterfaceOrientationMask interfaceOrientationMask = self.presenter ? [self.presenter getOrientation:[self resolveOptions]] : [[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:[[UIApplication sharedApplication] keyWindow]];
+	return interfaceOrientationMask;
 }
 
 - (void)renderTreeAndWait:(BOOL)wait perform:(RNNReactViewReadyCompletionBlock)readyBlock {

@@ -12,9 +12,9 @@ typedef void (^RNNReactViewReadyCompletionBlock)(void);
 
 - (void)mergeOptions:(RNNNavigationOptions *)options;
 
-- (RNNNavigationOptions *)resolveOptions;
+- (void)mergeChildOptions:(RNNNavigationOptions *)options;
 
-- (RNNNavigationOptions *)resolveChildOptions:(UIViewController *) child;
+- (RNNNavigationOptions *)resolveOptions;
 
 - (void)setDefaultOptions:(RNNNavigationOptions *)defaultOptions;
 
