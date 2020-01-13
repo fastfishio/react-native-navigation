@@ -98,6 +98,8 @@ public class BottomTabPresenter {
                 });
                 if (tab.testId.hasValue()) bottomTabs.setTag(index, tab.testId.get());
                 if (shouldApplyDot(tab)) mergeDotIndicator(index, tab.dotIndicator); else mergeBadge(index, tab);
+                if (tab.isCenter.hasValue()) bottomTabs.setIsCenter(index, tab.isCenter.get());
+                if (tab.marginTop.hasValue()) bottomTabs.setMarginTop(index, tab.marginTop.get());
             }
         });
     }

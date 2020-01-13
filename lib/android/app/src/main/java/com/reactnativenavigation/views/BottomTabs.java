@@ -94,6 +94,22 @@ public class BottomTabs extends AHBottomNavigation {
         }
     }
 
+    public void setIsCenter(int index, boolean isCenter) {
+        AHBottomNavigationItem item = getItem(index);
+        if (item.isCenter() != isCenter) {
+            item.setCenter(isCenter);
+            refresh();
+        }
+    }
+
+    public void setMarginTop(int index, int marginTop) {
+        AHBottomNavigationItem item = getItem(index);
+        if (item.getMarginTop() != marginTop) {
+            item.setMarginTop(marginTop);
+            refresh();
+        }
+    }
+
     public void setLayoutDirection(LayoutDirection direction) {
          LinearLayout tabsContainer = findChildByClass(this, LinearLayout.class);
         if (tabsContainer != null) tabsContainer.setLayoutDirection(direction.get());
