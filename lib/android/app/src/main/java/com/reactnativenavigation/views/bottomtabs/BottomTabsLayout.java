@@ -6,5 +6,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 public class BottomTabsLayout extends CoordinatorLayout {
     public BottomTabsLayout(Context context) {
         super(context);
+        setClipToPadding(false);
+        setClipChildren(false);
     }
 }
