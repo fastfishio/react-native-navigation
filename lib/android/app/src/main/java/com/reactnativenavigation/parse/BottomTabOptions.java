@@ -42,6 +42,8 @@ public class BottomTabOptions {
         options.fontSize = NumberParser.parse(json, "fontSize");
         options.selectedFontSize = NumberParser.parse(json, "selectedFontSize");
         options.dotIndicator = DotIndicatorOptions.parse(json.optJSONObject("dotIndicator"));
+        options.isCenter = BoolParser.parse(json, "isCenter");
+        options.marginTop = NumberParser.parse(json, "marginTop");
         return options;
     }
 
@@ -60,6 +62,8 @@ public class BottomTabOptions {
     public Number fontSize = new NullNumber();
     public Number selectedFontSize = new NullNumber();
     @Nullable public Typeface fontFamily;
+    public Bool isCenter = new NullBool();
+    public Number marginTop = new NullNumber();
 
 
     void mergeWith(final BottomTabOptions other) {
@@ -78,6 +82,8 @@ public class BottomTabOptions {
         if (other.selectedFontSize.hasValue()) selectedFontSize = other.selectedFontSize;
         if (other.fontFamily != null) fontFamily = other.fontFamily;
         if (other.dotIndicator.hasValue()) dotIndicator = other.dotIndicator;
+        if (other.isCenter.hasValue()) isCenter = other.isCenter;
+        if (other.marginTop.hasValue()) marginTop = other.marginTop;
     }
 
     void mergeWithDefault(final BottomTabOptions defaultOptions) {
@@ -96,5 +102,7 @@ public class BottomTabOptions {
         if (fontFamily == null) fontFamily = defaultOptions.fontFamily;
         if (!testId.hasValue()) testId = defaultOptions.testId;
         if (!dotIndicator.hasValue()) dotIndicator = defaultOptions.dotIndicator;
+        if (!isCenter.hasValue()) isCenter = defaultOptions.isCenter;
+        if (!marginTop.hasValue()) marginTop = defaultOptions.marginTop;
     }
 }

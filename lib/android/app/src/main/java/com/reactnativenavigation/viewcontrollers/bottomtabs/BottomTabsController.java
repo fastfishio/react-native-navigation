@@ -157,7 +157,8 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
                     options.text.get(""),
                     imageLoader.loadIcon(getActivity(), options.icon.get()),
                     imageLoader.loadIcon(getActivity(), options.selectedIcon.get(null)),
-                    options.testId.get("")
+                    options.testId.get(""),
+                    options.isCenter.get()
             );
         });
 	}
